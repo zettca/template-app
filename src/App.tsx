@@ -1,24 +1,20 @@
-import { useState } from "react";
-import {
-  HvButton,
-  HvProvider,
-  HvTypography,
-} from "@hitachivantara/uikit-react-core";
+import React, { Suspense } from "react";
+import { Routes } from "./routeGen";
+
+import AppProvider from "./providers/app";
+import ThemeProvider from "./providers/theme";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <HvProvider uiKitTheme="wicked">
-      <HvTypography variant="xlTitle">Vite + UI-Kit React ✨</HvTypography>
-      <HvTypography variant="sTitle">
-        Edit <code>App.tsx</code> and save to test HMR.
-      </HvTypography>
-      <br />
-      <HvButton variant="outlined" onClick={() => setCount((c) => c + 1)}>
-        count is {count}
-      </HvButton>
-    </HvProvider>
+    <React.StrictMode>
+      <Suspense fallback="Loading app...">
+        <AppProvider>
+          <ThemeProvider>
+            <Routes />
+          </ThemeProvider>
+        </AppProvider>
+      </Suspense>
+    </React.StrictMode>
   );
 }
 
