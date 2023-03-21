@@ -1,18 +1,23 @@
 import {
   ActionFunction,
   Form,
+  Link,
   redirect,
   useRouteError,
 } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { zfd } from "zod-form-data";
 import {
   HvButton,
   HvGrid,
   HvInput,
   HvTextArea,
+  HvTypography,
 } from "@hitachivantara/uikit-react-core";
 
 import { trpc } from "~/utils/trpc";
+import { focusElement } from "~/utils";
+import { PostForm } from "~/components/posts/PostForm";
 
 const formSchema = zfd.formData({
   author: zfd.text().optional(),
@@ -27,6 +32,8 @@ export const action: ActionFunction = async ({ request }) => {
     await request.formData()
   );
 
+  console.log("Sending request to server...");
+
   const postData = await trpc.createPost.mutate({
     author,
     title,
@@ -35,35 +42,28 @@ export const action: ActionFunction = async ({ request }) => {
     description,
   });
 
+  console.log("postData", postData);
+
   return redirect(`/posts/${postData.id}`);
 };
 
 export default function NewPost() {
-  return (
-    <Form method="post">
-      <HvGrid container>
-        <HvGrid item xs={12}>
-          <HvInput required name="title" label="title" />
-        </HvGrid>
-        <HvGrid item xs={12}>
-          <HvInput required name="description" label="description" />
-        </HvGrid>
-        <HvGrid item xs={12}>
-          <HvTextArea required name="body" label="body" rows={4} />
-        </HvGrid>
-        <HvGrid item xs={12}>
-          <HvInput name="tags" label="tags" />
-        </HvGrid>
-        <HvGrid item xs={12}>
-          <HvButton type="submit">Create</HvButton>
-        </HvGrid>
-      </HvGrid>
-    </Form>
-  );
+  return <PostForm method="post" />;
 }
 
 export const ErrorElement = () => {
   const { message } = useRouteError() as Error;
 
-  return `Error creating post: ${message}`;
+  return (
+    <div>
+      <HvTypography>Error creating post: {message}</HvTypography>
+      <br />
+      <HvTypography>
+        <Link to="." ref={focusElement}>
+          Click here
+        </Link>
+        to try again
+      </HvTypography>
+    </div>
+  );
 };
