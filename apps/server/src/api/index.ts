@@ -1,6 +1,8 @@
-import { nanoid } from "npm:nanoid";
-import { z } from "npm:zod";
-import { t } from "../trpc.ts";
+// import { nanoid } from "nanoid";
+import { z } from "zod";
+import { t } from "../trpc";
+
+const nanoid = (num: number) => `${Math.floor(Math.random() * 10 ** num)}`;
 
 const postSchema = z.object({
   title: z.string(),

@@ -22,10 +22,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@server/*": ["../server/*"]
     }
   },
   "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [
     {
       "path": "./tsconfig.node.json"

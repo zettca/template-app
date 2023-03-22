@@ -4,7 +4,7 @@ import {
   createTRPCReact,
   httpLink,
 } from "@trpc/react-query";
-import { AppRouter } from "~/server/api";
+import type { AppRouter } from "@server/src/api";
 
 export const clientConfig: CreateTRPCClientOptions<AppRouter> = {
   links: [httpLink({ url: "http://localhost:3001/trpc" })],
