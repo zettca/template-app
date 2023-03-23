@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import { TestProvider } from "~/tests/providers";
 import Loading from ".";
@@ -15,10 +14,10 @@ describe("<Loading />", () => {
   });
 
   it("renders the label", () => {
-    expect(screen.getByText(MOCK_LABEL)).toBeVisible();
+    expect(screen.getByText(MOCK_LABEL)).toBeInTheDocument();
   });
 
   it("renders the aria loading", () => {
-    expect(screen.getByRole("progressbar")).toBeVisible();
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
 });

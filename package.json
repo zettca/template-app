@@ -1,0 +1,13 @@
+{
+  "name": "template-app",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@7.30.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "nx": "15.8.7"
+  }
+}

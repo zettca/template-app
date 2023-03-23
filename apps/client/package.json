@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "test": "vitest",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -42,10 +43,12 @@
     "@types/js-cookie": "^3.0.2",
     "@types/react": "^17.0.53",
     "@types/react-dom": "^17.0.18",
+    "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^3.1.0",
+    "happy-dom": "^8.9.0",
     "prettier": "^2.8.4",
     "rollup-plugin-bundle-analyzer": "^1.6.6",
-    "typescript": "^4.9.3",
+    "typescript": "^4.9.5",
     "vite": "^4.0.0",
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "^0.28.5",

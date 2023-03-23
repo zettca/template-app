@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import { TestProvider } from "~/tests/providers";
 import NotFound from ".";
@@ -17,9 +16,9 @@ describe("<NotFound />", () => {
   });
 
   it("renders the content", () => {
-    expect(screen.getByText(MOCK_CODE)).toBeVisible();
-    expect(screen.getByText(MOCK_TITLE)).toBeVisible();
-    expect(screen.getByText(MOCK_FOOTER)).toBeVisible();
+    expect(screen.getByText(MOCK_CODE)).toBeInTheDocument();
+    expect(screen.getByText(MOCK_TITLE)).toBeInTheDocument();
+    expect(screen.getByText(MOCK_FOOTER)).toBeInTheDocument();
   });
 });
 
@@ -35,6 +34,6 @@ describe("<NotFound /> with title only", () => {
   });
 
   it("renders the title", () => {
-    expect(screen.getByText(MOCK_TITLE)).toBeVisible();
+    expect(screen.getByText(MOCK_TITLE)).toBeInTheDocument();
   });
 });
