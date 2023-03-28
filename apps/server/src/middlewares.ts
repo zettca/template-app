@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import { createContext } from "./trpc";
-import { appRouter as router } from "./api";
+import { appRouter as router } from "./routers";
 
 export function setupMiddlewares(app: Application) {
   app.use(cors());

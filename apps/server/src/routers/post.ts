@@ -1,4 +1,3 @@
-// import { nanoid } from "nanoid";
 import { z } from "zod";
 import { t } from "../trpc";
 
@@ -33,21 +32,8 @@ addPost();
 addPost();
 addPost();
 
-export const appRouter = t.router({
-  ping: t.procedure.query(() => {
-    return { message: "pong", time: Date.now() };
-  }),
-  hello: t.procedure
-    .input(
-      z.object({
-        name: z.string(),
-        age: z.number().optional(),
-      })
-    )
-    .query(({ input }) => {
-      return { message: `Hello ${input.name} ${input.age}!` };
-    }),
-  getPost: t.procedure
+export const postRouter = t.router({
+  byId: t.procedure
     .input((id) => {
       return id;
     })
@@ -56,19 +42,17 @@ export const appRouter = t.router({
       const post = POSTS.get(id || "base");
       return post;
     }),
-  getPosts: t.procedure
+  list: t.procedure
     .input(z.object({ author: z.string().optional() }).optional())
     .query(({ input }) => {
       const author = input?.author;
       const posts = [...POSTS.values()];
       return posts.filter((p) => !author || p.author === author);
     }),
-  createPost: t.procedure.input(postSchema).mutation(({ input }) => {
+  add: t.procedure.input(postSchema).mutation(({ input }) => {
     const newPostId = nanoid(8);
     const newPost: Post = { id: newPostId, ...input };
     POSTS.set(newPostId, newPost);
     return newPost;
   }),
 });
-
-export type AppRouter = typeof appRouter;
