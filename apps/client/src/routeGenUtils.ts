@@ -1,5 +1,5 @@
 export const patterns = {
-  route: [/^\/src\/pages\/|^\/pages\/|\.(jsx|tsx)$/g, ""],
+  route: [/^\/src\/routes\/|^\/routes\/|\.(jsx|tsx)$/g, ""],
   splat: [/\[\.{3}\w+\]/g, "*"],
   param: [/\[([^\]]+)\]/g, ":$1"],
   slash: [/^index$|\./g, "/"],
@@ -85,7 +85,9 @@ export const generateRegularRoutes = <T extends BaseRoute, M>(
       }
 
       if (leaf) {
-        parent?.children?.[insert](route?.index ? route : { path, ...route });
+        parent?.children?.[insert](
+          route?.["index"] ? route : { path, ...route }
+        );
       }
 
       return parent;

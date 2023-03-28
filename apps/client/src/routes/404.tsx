@@ -3,7 +3,7 @@ import { HvContainer } from "@hitachivantara/uikit-react-core";
 
 import NotFoundComponent from "~/components/common/NotFound";
 
-export default function NotFound() {
+export const Component: React.FC = () => {
   const { t } = useTranslation("notFound");
 
   return (
@@ -11,4 +11,4 @@ export default function NotFound() {
       <NotFoundComponent title={t("title")} />
     </HvContainer>
   );
-}
+};

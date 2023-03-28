@@ -1,6 +1,5 @@
 import {
   ActionFunction,
-  Form,
   Link,
   redirect,
   useRouteError,
@@ -27,7 +26,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   console.log("Sending request to server...");
 
-  const postData = await trpc.createPost.mutate({
+  const postData = await trpc.post.add.mutate({
     author,
     title,
     body,
@@ -40,11 +39,11 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(`/posts/${postData.id}`);
 };
 
-export default function NewPost() {
+export const Component: React.FC = () => {
   return <PostForm method="post" />;
-}
+};
 
-export const ErrorElement = () => {
+export const ErrorBoundary: React.FC = () => {
   const { message } = useRouteError() as Error;
 
   return (

@@ -1,4 +1,4 @@
-import { Link, LoaderFunction, Outlet, useLoaderData } from "react-router-dom";
+import { Link, Outlet, useLoaderData } from "react-router-dom";
 import {
   HvButton,
   HvContainer,
@@ -11,16 +11,16 @@ import {
 import { trpc } from "~/utils/trpc";
 
 export const loader = async () => {
-  return trpc.getPosts.query();
+  return trpc.post.list.query();
 };
 
-export default function PostsLayout() {
+export const Component: React.FC = () => {
   const data = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
   return (
     <HvContainer maxWidth="xl">
       <HvGrid container>
-        <HvGrid item xs={12} sm={4}>
+        <HvGrid item xs={12} sm={4} lg={2}>
           <HvListContainer interactive condensed>
             {data.map((post) => (
               <HvListItem key={post.id}>
@@ -36,14 +36,14 @@ export default function PostsLayout() {
             New post
           </HvButton>
         </HvGrid>
-        <HvGrid item xs={12} sm={8}>
+        <HvGrid item xs={12} sm={8} lg={10}>
           <Outlet />
         </HvGrid>
       </HvGrid>
     </HvContainer>
   );
-}
+};
 
-export const ErrorElement = () => {
-  return "Error loading posts 🤔";
+export const ErrorBoundary: React.FC = () => {
+  return <span>Error loading posts 🤔</span>;
 };

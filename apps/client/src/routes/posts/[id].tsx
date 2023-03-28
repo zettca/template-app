@@ -9,14 +9,14 @@ import { trpc } from "~/utils/trpc";
 import invariant from "tiny-invariant";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const postId = params.id;
+  const postId = params["id"];
 
   invariant(postId, "Post ID not found");
 
-  return trpc.getPost.query(postId);
+  return trpc.post.byId.query(postId);
 };
 
-export default function PostDetails() {
+export const Component: React.FC = () => {
   const data = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
   return (
@@ -38,9 +38,9 @@ export default function PostDetails() {
       <HvTypography>{data.body}</HvTypography>
     </div>
   );
-}
+};
 
-export const ErrorElement = () => {
+export const ErrorBoundary = () => {
   const { message } = useRouteError() as Error;
   console.error(message);
 

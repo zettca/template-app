@@ -1,14 +1,9 @@
-import { Fragment, lazy, Suspense } from "react";
+import { Fragment } from "react";
 import {
   createBrowserRouter,
   Outlet,
-  RouterProvider,
-  useRouteError,
-} from "react-router-dom";
-import type {
-  ActionFunction,
   RouteObject,
-  LoaderFunction,
+  RouterProvider,
 } from "react-router-dom";
 
 import {
@@ -16,61 +11,55 @@ import {
   generateRegularRoutes,
 } from "./routeGenUtils";
 
-type Element = () => JSX.Element;
-type Module = {
-  default: Element;
-  loader: LoaderFunction;
-  action: ActionFunction;
-  ErrorElement: Element;
-};
+type RouteModule = Pick<
+  RouteObject,
+  "Component" | "action" | "loader" | "ErrorBoundary"
+> & { default?: React.ComponentType };
 
-const PRESERVED = import.meta.glob<Module>("/src/pages/(_app|404).{jsx,tsx}", {
-  eager: true,
-});
-const ROUTES = import.meta.glob<Module>([
-  "/src/pages/**/[\\w[]*.{jsx,tsx}",
+const PRESERVED = import.meta.glob<RouteModule>(
+  "/src/routes/(_app|404).{jsx,tsx}",
+  { eager: true }
+);
+const ROUTES = import.meta.glob<RouteModule>([
+  "/src/routes/**/[\\w[-]*.{jsx,tsx}",
   "!**/(_app|404).*",
 ]);
 
-const preservedRoutes = generatePreservedRoutes<Element>(PRESERVED);
+const preservedRoutes = generatePreservedRoutes<React.VFC>(PRESERVED);
 
-const DefaultErrorElement = () => {
-  throw useRouteError();
-};
-
-const regularRoutes = generateRegularRoutes<RouteObject, () => Promise<Module>>(
-  ROUTES,
-  (module, key) => {
-    const Element = lazy(module);
-    const ErrorElement = lazy(() =>
-      module().then((module) => ({
-        default: module.ErrorElement || DefaultErrorElement,
-      }))
-    );
-    const index = /(?<!pages\/)index\.(jsx|tsx)$/.test(key)
+const regularRoutes = generateRegularRoutes<
+  RouteObject,
+  () => Promise<Partial<RouteModule>>
+>(ROUTES, (module, key) => {
+  const index =
+    /index\.(jsx|tsx)$/.test(key) && !key.includes("routes/index")
       ? { index: true }
       : {};
 
-    return {
-      ...index,
-      element: <Suspense fallback={null} children={<Element />} />,
-      loader: (...args) =>
-        module().then((mod) => mod?.loader?.(...args) || null),
-      action: (...args) =>
-        module().then((mod) => mod?.action?.(...args) || null),
-      errorElement: <Suspense fallback={null} children={<ErrorElement />} />,
-    };
-  }
-);
+  return {
+    ...index,
+    lazy: async () => {
+      const {
+        Component,
+        ErrorBoundary,
+        loader,
+        action,
+        default: defaultExport,
+      } = await module();
+      return {
+        Component: Component ?? defaultExport,
+        ErrorBoundary,
+        loader,
+        action,
+      };
+    },
+  };
+});
 
-const App = preservedRoutes?.["_app"] || Fragment;
+const App = preservedRoutes?.["_app"] || Outlet;
 const NotFound = preservedRoutes?.["404"] || Fragment;
 
 export const routes = [...regularRoutes, { path: "*", element: <NotFound /> }];
-const router = createBrowserRouter([
-  { element: <App children={<Outlet />} />, children: routes },
-]);
+const router = createBrowserRouter([{ element: <App />, children: routes }]);
 
-export const Routes = () => {
-  return <RouterProvider router={router} />;
-};
+export const Router = () => <RouterProvider router={router} />;

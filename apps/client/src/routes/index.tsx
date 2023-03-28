@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useLoaderData, useRouteError } from "react-router-dom";
 import { HvButton, HvTypography } from "@hitachivantara/uikit-react-core";
 
@@ -13,7 +13,7 @@ export const loader = async () => {
   return { message, time, greeting };
 };
 
-export default function Index() {
+export const Component: React.FC = () => {
   const data = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const [count, setCount] = useState(0);
 
@@ -40,9 +40,9 @@ export default function Index() {
       <HvTypography>{data.greeting}</HvTypography>
     </div>
   );
-}
+};
 
-export const ErrorElement = () => {
+export const ErrorBoundary = () => {
   const { message } = useRouteError() as Error;
 
   return <HvTypography>💥 Oops. Something went wrong: {message} </HvTypography>;

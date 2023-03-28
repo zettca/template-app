@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Routes } from "./routeGen";
+import { Router } from "./routeGen";
 
 import AppProvider from "./providers/app";
 import ThemeProvider from "./providers/theme";
@@ -10,7 +10,7 @@ function App() {
       <Suspense fallback="Loading app...">
         <AppProvider>
           <ThemeProvider>
-            <Routes />
+            <Router />
           </ThemeProvider>
         </AppProvider>
       </Suspense>
