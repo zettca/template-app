@@ -80,11 +80,11 @@ export function PostForm({
           xs={12}
           style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}
         >
-          <HvButton category="ghost" onClick={onBack}>
-            Back
-          </HvButton>
           <HvButton type="submit" category="secondary">
             {t(getLabel(method))}
+          </HvButton>
+          <HvButton category="ghost" onClick={onBack}>
+            Back
           </HvButton>
         </HvGrid>
       </HvGrid>

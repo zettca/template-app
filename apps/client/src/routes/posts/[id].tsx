@@ -28,12 +28,15 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   return post;
 };
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ params, request }) => {
+  const { id } = params;
+  invariant(id, "Invalid ID");
   const { author, title, body, tags, description } = formSchema.parse(
     await request.formData()
   );
 
-  const postData = await trpc.post.add.mutate({
+  const postData = await trpc.post.edit.mutate({
+    id,
     author,
     title,
     body,
@@ -64,7 +67,11 @@ export const Component: React.FC = () => {
   ) : (
     <div>
       {/* @ts-ignore */}
-      <HvButton category="ghost" onClick={() => setSearchParams("?edit")}>
+      <HvButton
+        category="ghost"
+        style={{ float: "right" }}
+        onClick={() => setSearchParams("?edit")}
+      >
         Edit post
       </HvButton>
       <PostView data={data} />

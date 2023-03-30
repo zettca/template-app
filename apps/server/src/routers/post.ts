@@ -15,16 +15,18 @@ const createPostSchema = z.object({
 
 const editPostSchema = z.object({ id: z.string(), ...createPostSchema.shape });
 
-export type Post = { id: string } & z.infer<typeof createPostSchema>;
+export type PostData = z.infer<typeof createPostSchema>;
+export type Post = { id: string } & PostData;
 
 const POSTS = new Map<string, Post>();
 
 export const addPost = (id = nanoid(8)) => {
-  const newPost = {
+  const newPost: PostData = {
     author: "zettca",
     title: `Post ${id}`,
+    description: `post ${id} description`,
     tags: "t1,t2",
-    body: `Post description lorem ipsum for ${id}`,
+    body: `Post body content for ${id}\nlorem ipsum for ${id}\nblah blah blah`,
   };
   POSTS.set(id, { id, ...newPost });
 };

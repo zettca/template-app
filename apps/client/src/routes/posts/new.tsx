@@ -2,6 +2,7 @@ import {
   ActionFunction,
   Link,
   redirect,
+  useNavigate,
   useRouteError,
 } from "react-router-dom";
 import { zfd } from "zod-form-data";
@@ -36,7 +37,8 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const Component: React.FC = () => {
-  return <PostForm method="post" />;
+  const navigate = useNavigate();
+  return <PostForm method="post" onBack={() => navigate("..")} />;
 };
 
 export const ErrorBoundary: React.FC = () => {
