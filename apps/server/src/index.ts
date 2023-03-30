@@ -2,6 +2,7 @@ import http from "node:http";
 import express from "express";
 
 import { setupMiddlewares } from "./middlewares";
+import { addPost } from "./routers/post";
 
 export function setupServer() {
   const app = express();
@@ -13,7 +14,14 @@ export function setupServer() {
 }
 
 const server = setupServer();
-const port = Number(process.env.PORT) || 3001;
+const port = Number(process.env.PORT) || 3002;
 server.listen(port, () => {
   console.log(`🚀 Listening on http://localhost:${port}`);
 });
+
+// seed
+addPost();
+addPost();
+addPost();
+addPost();
+addPost();

@@ -11,7 +11,7 @@ import { trpc } from "~/utils/trpc";
 import { focusElement } from "~/utils";
 import { PostForm } from "~/components/posts/PostForm";
 
-const formSchema = zfd.formData({
+export const formSchema = zfd.formData({
   author: zfd.text().optional(),
   title: zfd.text(),
   body: zfd.text(),
@@ -24,8 +24,6 @@ export const action: ActionFunction = async ({ request }) => {
     await request.formData()
   );
 
-  console.log("Sending request to server...");
-
   const postData = await trpc.post.add.mutate({
     author,
     title,
@@ -33,8 +31,6 @@ export const action: ActionFunction = async ({ request }) => {
     tags,
     description,
   });
-
-  console.log("postData", postData);
 
   return redirect(`/posts/${postData.id}`);
 };
@@ -53,7 +49,7 @@ export const ErrorBoundary: React.FC = () => {
       <HvTypography>
         <Link to="." ref={focusElement}>
           Click here
-        </Link>
+        </Link>{" "}
         to try again
       </HvTypography>
     </div>

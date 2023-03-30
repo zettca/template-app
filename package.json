@@ -2,6 +2,10 @@
   "name": "template-app",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "dev": "nx run-many --target=dev",
+    "build": "nx run-many --target=build"
+  },
   "packageManager": "pnpm@7.30.0",
   "workspaces": [
     "apps/*",
