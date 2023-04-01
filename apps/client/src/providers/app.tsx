@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, useMemo } from "react";
-import { clientConfig, tRpc, trpc } from "~/utils/trpc";
+import { clientConfig, tRpc } from "~/utils/trpc";
 
 export type AppContentType = {};
 
