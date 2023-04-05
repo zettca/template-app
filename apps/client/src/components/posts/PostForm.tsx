@@ -10,18 +10,6 @@ import {
 
 import { Post } from "~/types/app";
 
-const getLabel = (method: FormMethod) => {
-  switch (method) {
-    case "post":
-      return "Create";
-    case "put":
-    case "patch":
-      return "Save";
-    default:
-      return "";
-  }
-};
-
 type PostFormValues = Post;
 
 type PostFormProps = {
@@ -37,7 +25,7 @@ export function PostForm({
   onBack,
   onSubmit,
 }: PostFormProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation("posts", { keyPrefix: "form" });
 
   return (
     <Form method={method} onSubmit={onSubmit}>
@@ -81,10 +69,10 @@ export function PostForm({
           style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}
         >
           <HvButton type="submit" category="secondary">
-            {t(getLabel(method))}
+            {t(`submit.${method}`)}
           </HvButton>
           <HvButton category="ghost" onClick={onBack}>
-            Back
+            {t("submit.cancel")}
           </HvButton>
         </HvGrid>
       </HvGrid>

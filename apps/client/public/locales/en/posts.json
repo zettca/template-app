@@ -1,0 +1,14 @@
+{
+  "form": {
+    "title": "Title",
+    "description": "Description",
+    "body": "Post body content",
+    "tags": "Tags",
+    "submit": {
+      "cancel": "Back",
+      "post": "Create",
+      "put": "Save",
+      "patch": "Save"
+    }
+  }
+}

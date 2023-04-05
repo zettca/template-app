@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, useMemo } from "react";
+import { configureI18n } from "~/utils/i18next";
 import { clientConfig, tRpc } from "~/utils/trpc";
 
 export type AppContentType = {};
@@ -17,6 +18,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     () => ({ queryClient, trpcClient }),
     [queryClient, trpcClient]
   );
+
+  useMemo(() => {
+    configureI18n();
+  }, []);
 
   return (
     <AppContent.Provider value={contextValue}>

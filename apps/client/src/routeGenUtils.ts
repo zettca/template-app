@@ -18,7 +18,7 @@ export const generatePreservedRoutes = <T>(
 ): Partial<Record<PreservedKey, T>> => {
   return Object.keys(files).reduce((routes, key) => {
     const path = key.replace(...patterns.route);
-    return { ...routes, [path]: files[key]?.default };
+    return { ...routes, [path]: files[key]?.Component ?? files[key]?.default };
   }, {});
 };
 

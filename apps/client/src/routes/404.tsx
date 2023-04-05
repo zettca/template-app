@@ -4,7 +4,7 @@ import { HvContainer } from "@hitachivantara/uikit-react-core";
 import NotFoundComponent from "~/components/common/NotFound";
 
 export const Component: React.FC = () => {
-  const { t } = useTranslation("notFound");
+  const { t } = useTranslation("", { keyPrefix: "notFound" });
 
   return (
     <HvContainer>

@@ -5,7 +5,7 @@ import { initReactI18next } from "react-i18next";
 
 export const defaultLanguage = "en";
 
-export const configureI18n = (rebaseUrl: (path: string) => string) => {
+export const configureI18n = () => {
   i18n
     // load translation using xhr -> see /public/locales
     // learn more: https://github.com/i18next/i18next-http-backend
@@ -25,7 +25,7 @@ export const configureI18n = (rebaseUrl: (path: string) => string) => {
         order: ["cookie", "navigator"],
       },
       backend: {
-        loadPath: `${rebaseUrl("/locales")}/{{lng}}/{{ns}}.json`,
+        loadPath: "/locales/{{lng}}/{{ns}}.json",
       },
       lowerCaseLng: true,
       interpolation: {

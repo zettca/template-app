@@ -1,0 +1,14 @@
+{
+  "form": {
+    "title": "Título",
+    "description": "Descrição",
+    "body": "Conteúdo",
+    "tags": "Etiquetas",
+    "submit": {
+      "cancel": "Voltar",
+      "post": "Criar",
+      "put": "Guardar",
+      "patch": "Guardar"
+    }
+  }
+}
