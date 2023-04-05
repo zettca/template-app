@@ -20,6 +20,7 @@ export default function App() {
   const paths: { id: string; label: string }[] = [
     { id: "/", label: "Home" },
     { id: "/posts", label: "Posts" },
+    { id: "/assets", label: "Assets" },
   ];
 
   // @ts-ignore

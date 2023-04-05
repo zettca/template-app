@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Sample OpenAPI spec
+  description: Sample OpenAPI spec of assets
+  version: 0.1.0
+servers:
+  - url: http://localhost:8062/api
+paths:
+  /assets:
+    get:
+      operationId: listAssets
+      parameters:
+        - in: query
+          name: name
+          description: Filter by name
+          schema:
+            type: string
+        - in: query
+          name: take
+          description: Page size
+          schema:
+            type: integer
+            format: int32
+        - in: query
+          name: skip
+          description: Search offset
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Asset"
+          description: "OK"
+        "404":
+          description: "Not Found"
+    post:
+      operationId: createAsset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssetForm"
+      responses:
+        "201":
+          description: "Created"
+        "400":
+          description: "Bad Request: Invalid Parameters"
+  /assets/{assetId}:
+    parameters:
+      - in: path
+        name: assetId
+        description: The Asset ID
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getAsset
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Asset"
+        "400":
+          description: "Bad Request"
+        "404":
+          description: "Not Found"
+    put:
+      operationId: editAsset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssetForm"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Bad Request"
+        "404":
+          description: "Not Found"
+    delete:
+      operationId: deleteAsset
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Bad Request"
+        "404":
+          description: "Not Found"
+
+components:
+  schemas:
+    Asset:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - status
+        - severity
+        - time
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - open
+            - closed
+        severity:
+          type: string
+          enum:
+            - critical
+            - major
+            - average
+            - minor
+        time:
+          type: integer
+          description: timestamp
+    AssetForm:
+      type: object
+      required:
+        - name
+        - description
+        - severity
+        - time
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        severity:
+          type: string
+        time:
+          type: integer
+          description: timestamp
+
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

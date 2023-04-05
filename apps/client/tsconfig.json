@@ -35,7 +35,8 @@
     "jsx": "react-jsx",
     "paths": {
       "~/*": ["./src/*"],
-      "@server/*": ["../server/*"]
+      "@server/*": ["../server/*"],
+      "@generated/*": ["./build/generated/*"]
     }
   },
   "include": ["src"],

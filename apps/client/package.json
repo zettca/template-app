@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "pnpm prepare:api",
+    "prepare:api": "pnpm exec openapi-codegen gen api",
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "vitest",
@@ -17,7 +19,7 @@
     "@hitachivantara/uikit-react-lab": "^4.3.3",
     "@mui/material": "^5.11.7",
     "@mui/styles": "^5.11.7",
-    "@tanstack/react-query": "^4.24.6",
+    "@tanstack/react-query": "^4.28.0",
     "@trpc/client": "^10.11.1",
     "@trpc/react-query": "^10.11.1",
     "@trpc/server": "^10.17.0",
@@ -36,6 +38,10 @@
     "zod-form-data": "^1.3.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@mswjs/data": "^0.12.0",
+    "@openapi-codegen/cli": "^2.0.0",
+    "@openapi-codegen/typescript": "^6.1.2",
     "@testing-library/dom": "^9.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
@@ -46,6 +52,8 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^3.1.0",
     "happy-dom": "^8.9.0",
+    "msw": "^1.2.1",
+    "msw-trpc": "^1.2.0",
     "prettier": "^2.8.4",
     "rollup-plugin-bundle-analyzer": "^1.6.6",
     "typescript": "^4.9.5",
@@ -53,5 +61,8 @@
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "^0.28.5",
     "whatwg-fetch": "^3.6.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
