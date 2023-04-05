@@ -56,8 +56,6 @@ export const Component: React.FC = () => {
 
   const isEditing = searchParams.get("edit") != null;
 
-  console.log("data", data);
-
   return isEditing ? (
     <PostForm
       method="put"
