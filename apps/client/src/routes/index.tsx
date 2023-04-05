@@ -34,7 +34,7 @@ export const Component: React.FC = () => {
         count is {count}
       </HvButton>
       <HvTypography>
-        Server says <code>"{data.message}"</code> at{" "}
+        Server says <code>{data.message}</code> at{" "}
         <code>{new Date(data.time).toISOString()}</code>
       </HvTypography>
       <HvTypography>{data.greeting}</HvTypography>

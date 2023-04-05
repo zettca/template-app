@@ -1,13 +1,14 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, useMemo } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { configureI18n } from "~/utils/i18next";
 import { clientConfig, tRpc } from "~/utils/trpc";
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type AppContentType = {};
 
 export const AppContent = createContext<AppContentType>({});
 
-export type AppProviderProps = {};
+export type AppProviderProps = Record<string, never>;
 
 /** Provider of global app context */
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {

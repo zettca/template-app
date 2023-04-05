@@ -1,4 +1,6 @@
-export const noop = () => {};
+export const noop = () => {
+  // empty
+};
 
 /**
  * Focuses the HTML `element` passed as input on mount.

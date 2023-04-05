@@ -20,7 +20,7 @@ export const Component: React.FC = () => {
   return (
     <div>
       {data.map((el) => (
-        <p>
+        <p key={el.id}>
           <Link to={el.id}>{el.name}</Link>
         </p>
       ))}
