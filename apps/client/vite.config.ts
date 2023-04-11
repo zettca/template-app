@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   base: "./",
   build: {
-    target: "es2021",
+    target: "esnext",
   },
   server: {
     port: 8066,
